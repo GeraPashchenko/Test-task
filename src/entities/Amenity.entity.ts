@@ -17,6 +17,6 @@ export default class Amenity {
 	@Column({ type: 'integer' })
 	end_time!: number;
 
-	@Column({ type: 'timestamp' })
+	@Column({ type: 'bigint' })
 	date!: number;
 }
