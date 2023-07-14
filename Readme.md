@@ -46,21 +46,18 @@ reservations should be sorted in ascending order by start time and contain the f
 	- duration in minutes;
 	- name of the amenity object.
 
----
 
 ## Task 2
 
 Create an endpoint that takes the user id as parameter, and returns a list of all bookings for this
 user grouped by days.
 
----
 
 ## Task 3
 
 Create an endpoint that accepts a CSV file and returns data from this file parsed to JSON. You
 can assume that data in the first row of a file are always headers. 
 
----
 
 ## Task 4 *
 
