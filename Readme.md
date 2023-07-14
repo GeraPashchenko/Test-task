@@ -8,6 +8,8 @@
 	- [Task 4](#task-4)
 4. [Tech stack](#tech-stack)
 
+---
+
 # Prehistory
 
 This project had been created with `Google TypeScript Stype` becasue I like this easy to setup and nice to manage feature.
