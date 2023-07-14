@@ -34,6 +34,10 @@ CSV files converted to SQL insert by [CSV to SQL](https://tableconvert.com/csv-t
 
 As I understood from the test task information - the "***date***" property of the "***Reservation***" entity is one day and both "***start_time***" and "***end_time***" in combination are time of one specific reservation in current "***date***"(means one day).
 
+The next confirmation that implementing this task I assumed that not only one user can book the specific amenity in parallel.
+
+**For example**: we have 5 toothbrushes and 5 users; so every user can hold it's own toothbrush in parallel, and the amenity is a toothbrush.
+
 ## Data format
 
  - Date – timestamp of the day, hour 00:00
