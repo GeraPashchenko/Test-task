@@ -1,6 +1,8 @@
 # Table of contents
 1. [Prehistory](#prehistory)
 2. [Task explanation](#task-explanation)
+	- [Data format](#data-format)
+	- [Requirements](#requirements)
 3. [Tasks](#tasks)
 	- [Task 1](#task-1)
 	- [Task 2](#task-2)
@@ -30,7 +32,22 @@ CSV files converted to SQL insert by `https://tableconvert.com/csv-to-sql`
 
 # Task explanation
 
-As I understood from the requirements - the "***date***" property of the "***Reservation***" entity is one day and both "***start_time***" and "***end_time***" in combination are time of one specific reservation in current "***date***"(means one day).
+As I understood from the test task information - the "***date***" property of the "***Reservation***" entity is one day and both "***start_time***" and "***end_time***" in combination are time of one specific reservation in current "***date***"(means one day).
+
+## Data format
+
+ - Date – timestamp of the day, hour 00:00
+ - Start time / end time – minutes from an hour 00:00, exp. (300 – to 5:00)
+
+## Requirements
+
+- using Node.js with Javascript or Typescript
+- you can use any libraries / frameworks / databases
+- use known good practices and patterns
+- application tests are welcome
+- solution should be sent as a link to the repository on GitHub / GitLab / Bitbucket
+- Commit history is important
+- preparing an application for production deployment (Dockerfile, Docker Compose) would be nice
 
 ---
 
