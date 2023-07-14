@@ -14,7 +14,7 @@
 
 # Prehistory
 
-This project had been created with `Google TypeScript Stype` becasue I like this easy to setup and nice to manage feature.
+This project had been created with "`Google TypeScript Stype`" becasue I like this easy to setup and nice to manage feature.
 
 GTS initialization includes by default: 
  - eslint;
@@ -26,7 +26,7 @@ Use these comands in development:
  - clean: to delete build;
  - compile: to build the project.
 
-CSV files converted to SQL insert by `https://tableconvert.com/csv-to-sql`
+CSV files converted to SQL insert by [CSV to SQL](https://tableconvert.com/csv-to-sql)
 
 ---
 
