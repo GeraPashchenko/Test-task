@@ -1,4 +1,4 @@
-CREATE TABLE amenity (
+CREATE TABLE amenities (
 	id SERIAL PRIMARY KEY,
 	name TEXT NOT NULL
 );
@@ -10,10 +10,10 @@ CREATE TABLE users (
 
 CREATE TABLE reservations (
 	id SERIAL PRIMARY KEY,
-	amenity_id INTEGER NOT NULL,
-	user_id INTEGER NOT NULL,
-	start_time INTEGER NOT NULL DEFAULT 0,
-	end_time INTEGER NOT NULL DEFAULT 0,
+	amenityId INTEGER NOT NULL,
+	userId INTEGER NOT NULL,
+	startTime INTEGER NOT NULL DEFAULT 0,
+	endTime INTEGER NOT NULL DEFAULT 0,
 	date BIGINT NOT NULL,
-	CONSTRAINT fk_reservation_id FOREIGN KEY (amenity_id) REFERENCES amenity (id)
+	CONSTRAINT fk_reservation_id FOREIGN KEY (amenityId) REFERENCES amenity (id)
 );

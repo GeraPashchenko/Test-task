@@ -1,45 +1,64 @@
 import { Repository, Equal } from "typeorm";
-import dataSource from "../Database/dataSource";
+import dataSource from "../config/database/dataSource";
 import Reservation from "../entities/Reservation.entity";
-import Amenity from "../entities/Amenity.entity";
+import { ReservationAmenityWithDurationDTO, ReservationAmenityWithDurationInputDTO } from "../dtos/Reservation.dto";
 
-class ReservationService {
+export interface IReservationService {
+	listByAmenityAndDate(input: ReservationAmenityWithDurationInputDTO): Promise<ReservationAmenityWithDurationDTO[]>;
+	listByUserId(userId: number): Promise<Reservation[]>;
+};
+
+export class ReservationService implements IReservationService {
 	#ReservationRepository: Repository<Reservation>;
 
 	constructor() {
 		this.#ReservationRepository = dataSource.getRepository(Reservation);
 	};
 
-	async listByAmenityAndDate(amenityId: number, date: number): Promise<Reservation[]> {
-		const result = await this.#ReservationRepository.createQueryBuilder()
-			.relation(Amenity, '')
+	async listByAmenityAndDate(input: ReservationAmenityWithDurationInputDTO): Promise<ReservationAmenityWithDurationDTO[]> {
+		const { amenityId, date } = input;
 
-
-		find({
-			relations: ['amenities'],
+		const reservations = await this.#ReservationRepository.find({
+			relations: {
+				amenity: true,
+			},
 			where: {
-				amenity_id: Equal(amenityId),
+				amenityId: Equal(amenityId),
 				date: Equal(date),
 			},
-			select: [
-				''
-			]
+			order: {
+				startTimeInHHMM: 'ASC',
+			},
+			select: {
+				id: true,
+				userId: true,
+				startTimeInHHMM: true,
+				duration: true,
+				amenity: {
+					name: true,
+				}
+			},
 		});
 
-		return result;
+		return reservations.map((reservation) => ({
+			id: reservation.id,
+			userId: reservation.userId,
+			startTimeInHHMM: reservation.startTimeInHHMM,
+			duration: reservation.duration,
+			amenityName: reservation.amenity.name,
+		}));
 	}
 
-	async listByUserId(userId: number): Promise<Reservation> {
-		const result = await this.#ReservationRepository.findOneBy({
-			user_id: Equal(userId),
-		});
+	async listByUserId(userId: number): Promise<Reservation[]> {
+		const reservations = await this.#ReservationRepository.createQueryBuilder('reservation')
+			.select('*')
+			.where('reservation.userId = :userId', { userId })
+			.groupBy('reservation.date') // Group by the date column
+			.getMany();
 
-		if (!result)
+		if (!reservations)
 			throw new Error('There is no reservations for this user')
 
-		return result;
+		return reservations;
 	}
-}
-
-const singletonService = Object.freeze(new ReservationService());
-export default singletonService;
+};

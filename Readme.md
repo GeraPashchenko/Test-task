@@ -32,7 +32,7 @@ CSV files converted to SQL insert by [CSV to SQL](https://tableconvert.com/csv-t
 
 # Task explanation
 
-As I understood from the test task information - the "***date***" property of the "***Reservation***" entity is one day and both "***start_time***" and "***end_time***" in combination are time of one specific reservation in current "***date***"(means one day).
+As I understood from the test task information - the "***date***" property of the "***Reservation***" entity is one day and both "***startTime***" and "***endTime***" in combination are time of one specific reservation in current "***date***"(means one day).
 
 ## Data format
 
