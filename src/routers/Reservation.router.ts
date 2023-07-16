@@ -9,5 +9,4 @@ const reservationController = new ReservationController(reservationRepoService);
 router.get('/listByAmenityAndDay', reservationController.handleListByAmenityAndDate.bind(reservationController));
 router.get('/:user_id', reservationController.handleListByUserId.bind(reservationController));
 
-
 export default router;

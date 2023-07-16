@@ -47,8 +47,6 @@ export class ReservationRepoService implements IReservationRepoService {
 			.groupBy('rs.date')
 			.getRawMany();
 
-		console.log(reservations);
-
 		return reservations;
 	}
-};
+}

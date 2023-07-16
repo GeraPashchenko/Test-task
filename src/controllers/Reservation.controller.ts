@@ -34,4 +34,4 @@ export default class ReservationController {
 		const reservations = await this.reservationRepoService.listByUserId(user_id);
 		res.json(reservations);
 	}
-};
+}
