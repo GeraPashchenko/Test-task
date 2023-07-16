@@ -31,9 +31,6 @@ export class ReservationRepoService implements IReservationRepoService {
 			}
 		});
 
-		console.log(reservations);
-
-
 		return reservations.map((reservation) => ({
 			id: reservation.id,
 			user_id: reservation.user_id,
@@ -43,15 +40,14 @@ export class ReservationRepoService implements IReservationRepoService {
 		}));
 	}
 
-	async listByUserId(user_id: number): Promise<Reservation[]> {
-		const reservations = await this.#ReservationRepository.createQueryBuilder('reservation')
-			.select('*')
-			.where('reservation.user_id = :userId', { user_id })
-			.groupBy('reservation.date') // Group by the date column
-			.getMany();
+	async listByUserId(user_id: number): Promise<any> {
+		const reservations = await this.#ReservationRepository.createQueryBuilder('rs')
+			.select('rs.date, COUNT(rs.user_id)', 'reservations_count')
+			.where('rs.user_id = :user_id', { user_id })
+			.groupBy('rs.date')
+			.getRawMany();
 
-		if (!reservations)
-			throw new Error('There is no reservations for this user')
+		console.log(reservations);
 
 		return reservations;
 	}

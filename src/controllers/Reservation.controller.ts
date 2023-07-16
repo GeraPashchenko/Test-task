@@ -24,8 +24,14 @@ export default class ReservationController {
 		res.json(reservations);
 	}
 
-	async handleListByUserId(userId: number) {
-		const reservations = await this.reservationRepoService.listByUserId(userId);
-		return reservations;
+	async handleListByUserId(req: Request, res: Response) {
+		const user_id = Number(req.params.user_id);
+
+		if (isNaN(user_id)) {
+			res.status(400).json({ error: 'Invalid user Id' });
+		}
+
+		const reservations = await this.reservationRepoService.listByUserId(user_id);
+		res.json(reservations);
 	}
 };

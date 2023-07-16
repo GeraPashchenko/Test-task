@@ -34,6 +34,8 @@ CSV files converted to SQL insert by [CSV to SQL](https://tableconvert.com/csv-t
 
 As I understood from the test task information - the "***date***" property of the "***Reservation***" entity is one day and both "***startTime***" and "***endTime***" in combination are time of one specific reservation in current "***date***"(means one day).
 
+For the [Task 2](#task-2): I assume that we don't need to return any data except "**date**" and "**reservations_count**" (named count of reservations) because there are no requirements about data in task, so I'v chosen the easiest variant.
+
 ## Data format
 
  - Date – timestamp of the day, hour 00:00
