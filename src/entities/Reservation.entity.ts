@@ -7,33 +7,34 @@ export default class Reservation {
 	id!: number;
 
 	@Column({ type: 'integer' })
-	amenityId!: number;
+	amenity_id!: number;
 
 	@Column({ type: 'integer' })
-	userId!: number;
+	user_id!: number;
 
 	@Column({ type: 'integer' })
-	startTime!: number;
+	start_time!: number;
 
 	@Column({ type: 'integer' })
-	endTime!: number;
+	end_time!: number;
 
 	@Column({ type: 'bigint' })
 	date!: number;
 
 	// Booking duration in minutes
 	public get duration(): number {
-		if (this.endTime === 0) return 0;
+		if (this.end_time === 0) return 0;
 
-		return (this.endTime - this.startTime);
+		return (this.end_time - this.start_time);
 	};
 
 	// Booking start time in HH:MM format
-	public get startTimeInHHMM(): string {
-		const date = new Date(this.date);
+	public get start_time_hhmm(): string {
+		const dateTimestamp = typeof this.date === 'string' ? parseInt(this.date) : this.date;
+		const date = new Date(dateTimestamp);
 
 		date.setHours(0, 0, 0, 0);
-		date.setMinutes(date.getMinutes() + this.startTime);
+		date.setMinutes(date.getMinutes() + this.start_time);
 
 		const hours = date.getHours();
 		const minutes = date.getMinutes();
@@ -43,6 +44,6 @@ export default class Reservation {
 	}
 
 	@OneToOne(() => Amenity)
-	@JoinColumn()
+	@JoinColumn({ name: 'amenity_id' })
 	amenity!: Amenity
 };

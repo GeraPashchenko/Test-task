@@ -1,8 +1,8 @@
 export default interface IReservation {
 	id: number;
-	amenityId: number,
-	userId: number,
-	startTime: number,
-	endTime: number,
+	amenity_id: number,
+	user_id: number,
+	start_ime: number,
+	end_time: number,
 	date: number,
 };

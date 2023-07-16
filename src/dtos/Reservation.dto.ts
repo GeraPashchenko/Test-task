@@ -1,12 +1,12 @@
 export interface ReservationAmenityWithDurationDTO {
 	id: number;
-	userId: number;
-	startTimeInHHMM: string;
+	user_id: number;
+	start_time_hhmm: string;
 	duration: number;
-	amenityName: string;
+	amenity_name: string;
 };
 
 export interface ReservationAmenityWithDurationInputDTO {
-	amenityId: number;
+	amenity_id: number;
 	date: number;
 };

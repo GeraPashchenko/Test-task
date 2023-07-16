@@ -3,12 +3,12 @@ import dataSource from "../config/database/dataSource";
 import Reservation from "../entities/Reservation.entity";
 import { ReservationAmenityWithDurationDTO, ReservationAmenityWithDurationInputDTO } from "../dtos/Reservation.dto";
 
-export interface IReservationService {
+export interface IReservationRepoService {
 	listByAmenityAndDate(input: ReservationAmenityWithDurationInputDTO): Promise<ReservationAmenityWithDurationDTO[]>;
 	listByUserId(userId: number): Promise<Reservation[]>;
 };
 
-export class ReservationService implements IReservationService {
+export class ReservationRepoService implements IReservationRepoService {
 	#ReservationRepository: Repository<Reservation>;
 
 	constructor() {
@@ -16,43 +16,37 @@ export class ReservationService implements IReservationService {
 	};
 
 	async listByAmenityAndDate(input: ReservationAmenityWithDurationInputDTO): Promise<ReservationAmenityWithDurationDTO[]> {
-		const { amenityId, date } = input;
+		const { amenity_id, date } = input;
 
 		const reservations = await this.#ReservationRepository.find({
 			relations: {
 				amenity: true,
 			},
 			where: {
-				amenityId: Equal(amenityId),
+				amenity_id: Equal(amenity_id),
 				date: Equal(date),
 			},
 			order: {
-				startTimeInHHMM: 'ASC',
-			},
-			select: {
-				id: true,
-				userId: true,
-				startTimeInHHMM: true,
-				duration: true,
-				amenity: {
-					name: true,
-				}
-			},
+				start_time: 'ASC',
+			}
 		});
+
+		console.log(reservations);
+
 
 		return reservations.map((reservation) => ({
 			id: reservation.id,
-			userId: reservation.userId,
-			startTimeInHHMM: reservation.startTimeInHHMM,
+			user_id: reservation.user_id,
+			start_time_hhmm: reservation.start_time_hhmm,
 			duration: reservation.duration,
-			amenityName: reservation.amenity.name,
+			amenity_name: reservation.amenity.name,
 		}));
 	}
 
-	async listByUserId(userId: number): Promise<Reservation[]> {
+	async listByUserId(user_id: number): Promise<Reservation[]> {
 		const reservations = await this.#ReservationRepository.createQueryBuilder('reservation')
 			.select('*')
-			.where('reservation.userId = :userId', { userId })
+			.where('reservation.user_id = :userId', { user_id })
 			.groupBy('reservation.date') // Group by the date column
 			.getMany();
 

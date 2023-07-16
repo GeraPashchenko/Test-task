@@ -1,26 +1,31 @@
-import { ReservationAmenityWithDurationDTO, ReservationAmenityWithDurationInputDTO } from '../dtos/Reservation.dto';
-import Reservation from '../entities/Reservation.entity';
-import { IReservationService } from '../services/Reservation.service';
+import { Request, Response } from 'express';
+import { IReservationRepoService } from '../services/Reservation.repo.service';
 
-export interface IReservationController {
-	handleListByAmenityAndDate(input: ReservationAmenityWithDurationInputDTO): Promise<ReservationAmenityWithDurationDTO[]>
-	handleListByUserId(userId: number): Promise<Reservation[]>
-};
+export default class ReservationController {
+	private reservationRepoService: IReservationRepoService;
 
-class ReservationController implements IReservationController {
-	#reservationService: IReservationService;
-
-	constructor(ReservationService: IReservationService) {
-		this.#reservationService = ReservationService;
+	constructor(ReservationRepoService: IReservationRepoService) {
+		this.reservationRepoService = ReservationRepoService;
 	}
 
-	async handleListByAmenityAndDate(input: ReservationAmenityWithDurationInputDTO): Promise<ReservationAmenityWithDurationDTO[]> {
-		const reservations = await this.#reservationService.listByAmenityAndDate(input);
-		return reservations;
+	async handleListByAmenityAndDate(req: Request, res: Response) {
+		const amenity_id = Number(req.query.amenity_id);
+		const date = Number(req.query.date);
+
+		if (isNaN(amenity_id)) {
+			res.status(400).json({ error: 'Invalid amenity Id' });
+		}
+
+		if (isNaN(date)) {
+			res.status(400).json({ error: 'Invalid date' });
+		}
+
+		const reservations = await this.reservationRepoService.listByAmenityAndDate({ amenity_id, date });
+		res.json(reservations);
 	}
 
-	async handleListByUserId(userId: number): Promise<Reservation[]> {
-		const reservations = await this.#reservationService.listByUserId(userId);
+	async handleListByUserId(userId: number) {
+		const reservations = await this.reservationRepoService.listByUserId(userId);
 		return reservations;
 	}
 };
