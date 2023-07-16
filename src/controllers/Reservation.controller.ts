@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { IReservationRepoService } from '../services/Reservation.repo.service';
+import { StatusCodes } from 'http-status-codes';
 
 export default class ReservationController {
 	private reservationRepoService: IReservationRepoService;
@@ -13,11 +14,11 @@ export default class ReservationController {
 		const date = Number(req.query.date);
 
 		if (isNaN(amenity_id)) {
-			res.status(400).json({ error: 'Invalid amenity Id' });
+			res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ error: 'Invalid amenity Id' });
 		}
 
 		if (isNaN(date)) {
-			res.status(400).json({ error: 'Invalid date' });
+			res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ error: 'Invalid date' });
 		}
 
 		const reservations = await this.reservationRepoService.listByAmenityAndDate({ amenity_id, date });
@@ -28,7 +29,7 @@ export default class ReservationController {
 		const user_id = Number(req.params.user_id);
 
 		if (isNaN(user_id)) {
-			res.status(400).json({ error: 'Invalid user Id' });
+			res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ error: 'Invalid user Id' });
 		}
 
 		const reservations = await this.reservationRepoService.listByUserId(user_id);
