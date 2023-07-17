@@ -1,5 +1,5 @@
 # Table of contents
-1. [Prehistory](#prehistory)
+1. [How to test this project](#how-to-test-this-project)
 2. [Task explanation](#task-explanation)
 	- [Data format](#data-format)
 	- [Requirements](#requirements)
@@ -12,32 +12,22 @@
 
 ---
 
-# How to test ths project
+# How to test this project
 Firstly you need to create `private.key` file like example `private.key.example` and fill it with your private key (it could be any text). Project needs it to configure `sign up/sign in` tokens.
-
-# Prehistory
-
-This project had been created with "`Google TypeScript Stype`" becasue I like this easy to setup and nice to manage feature.
-
-GTS initialization includes by default: 
- - eslint;
- - tsconfig;
- - prettier.
-
-Use these comands in development:
- - lint: lint the project to find warnings and errors;
- - clean: to delete build;
- - compile: to build the project.
-
-CSV files converted to SQL insert by [CSV to SQL](https://tableconvert.com/csv-to-sql)
 
 ---
 
 # Task explanation
 
+This project had been created with "`Google TypeScript Stype`" becasue I like this easy to setup and nice to manage feature.
+
+CSV files converted to SQL insert by [CSV to SQL](https://tableconvert.com/csv-to-sql)
+
 As I understood from the test task information - the "***date***" property of the "***Reservation***" entity is one day and both "***startTime***" and "***endTime***" in combination are time of one specific reservation in current "***date***"(means one day).
 
 For the [Task 2](#task-2): I assume that we don't need to return any data except "**date**" and "**reservations_count**" (named count of reservations) because there are no requirements about data in task, so I'v chosen the easiest variant.
+
+About the `appliation testing` there are tests for controllers and services. Now they are just as an example of how it would be on a project. I didn't do tests for all application because of time restrictions. I Hope you understand my hurryness.
 
 ## Data format
 
@@ -94,6 +84,7 @@ This is an extra task. Implement username-password authentication and make the e
 In this repo: 
 - dockerized application with PostgreSQL as DB, PgAdmin as RDBMS, TypeORM as ORM;
 - backend on Node.js + Express.js;
-- JWT Auth.
+- JWT Auth;
+- Jest.
 
 ---

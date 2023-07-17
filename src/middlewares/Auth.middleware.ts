@@ -1,10 +1,7 @@
-import { configDotenv } from "dotenv";
 import { jwtService } from "../services/JWT.service";
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import { ProjectError } from "../enums/ProjectErrors.enum";
-
-configDotenv();
 
 export interface TokenizedRequest extends Request {
 	token: string;

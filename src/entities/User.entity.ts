@@ -17,7 +17,7 @@ export default class User {
 
 	@BeforeInsert()
 	async hashPassword() {
-		const hashedPassword = await EncryptionHelper.encrypt(this.password, parseInt(process.env.SALT_ROUNDS || '10'));
+		const hashedPassword = await EncryptionHelper.encrypt(this.password);
 		this.password = hashedPassword;
 	}
 }

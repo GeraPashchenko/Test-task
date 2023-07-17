@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { IAuthService, authService } from "../services/Auth.service";
 import { ProjectError } from "../enums/ProjectErrors.enum";
+import { IAuthService } from "../services/Auth.service";
+import { authServiceMock } from "./Auth.service.mock";
 
-export class AuthController {
+export class AuthControllerMock {
 	#AuthService: IAuthService;
 
 	constructor(authService: IAuthService) {
@@ -22,4 +23,4 @@ export class AuthController {
 	}
 }
 
-export const authController = Object.freeze(new AuthController(authService));
+export const authControllerMock = Object.freeze(new AuthControllerMock(authServiceMock));
