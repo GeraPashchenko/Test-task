@@ -1,0 +1,151 @@
+openapi: 3.1.0
+info:
+  title: Reservation API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/
+paths:
+  /reservation/list-by-amenity-and-day:
+    get:
+      summary: Get reservations by amenity and day
+      description: Retrieve a list of reservations by amenity ID and day
+      parameters:
+        - name: amenityId
+          in: query
+          description: ID of the amenity
+          required: true
+          schema:
+            type: integer
+        - name: date
+          in: query
+          description: Date in timestamp format
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReservationListResponse"
+      security:
+        - bearerAuth: []
+  /reservation/{user_id}:
+    get:
+      summary: Get reservations by user ID
+      description: Retrieve a list of reservations by user ID
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReservationListResponse"
+      security:
+        - bearerAuth: []
+  /sign-in:
+    post:
+      summary: Sign in
+      description: Authenticate a user and get a token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignInRequest"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: string
+  /user/sign-up:
+    post:
+      summary: Sign up
+      description: Create a new user account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignUpRequest"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserWithTokenResponse"
+  /file/upload:
+    post:
+      summary: Upload a file
+      description: Upload a file with authorization
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Successful response
+      security:
+        - bearerAuth: []
+components:
+  schemas:
+    ReservationListResponse:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        startTimeInHHMM:
+          type: string
+        duration:
+          type: integer
+        amenityName:
+          type: string
+    SignInRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    SignUpRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    UserWithTokenResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        token:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

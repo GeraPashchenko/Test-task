@@ -13,7 +13,13 @@
 ---
 
 # How to test this project
-Firstly you need to create `private.key` file like example `private.key.example` and fill it with your private key (it could be any text). Project needs it to configure `sign up/sign in` tokens.
+
+>Firstly you need to create `private.key` file like example `private.key.example` and fill it with your private key (it could be any text). Project needs it to configure `sign up/sign in` tokens.
+
+>Then run the `npm run docker:up` command.
+
+>Please import the `doc.postman_collection.json` file into your postman and you could test the endpoints.
+
 
 ---
 
@@ -28,6 +34,10 @@ As I understood from the test task information - the "***date***" property of th
 For the [Task 2](#task-2): I assume that we don't need to return any data except "**date**" and "**reservations_count**" (named count of reservations) because there are no requirements about data in task, so I'v chosen the easiest variant.
 
 About the `appliation testing` there are tests for controllers and services. Now they are just as an example of how it would be on a project. I didn't do tests for all application because of time restrictions. I Hope you understand my hurryness.
+
+I've added the swagger documentation, you can access it after you set up the docker containers and open [this link](http://localhost). It was my first try with the swagger in docker app, and it's failing the requests, but you can see the documentation there.
+
+For testing the application you can yse postman requests that was provided by me. They are workable.
 
 ## Data format
 

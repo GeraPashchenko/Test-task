@@ -5,13 +5,15 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - 3000:3000
+      - ${SERVER_PORT}:${SERVER_PORT}
     depends_on:
       db:
         condition:
           service_healthy
     env_file:
       - .env
+    networks:
+      - swagger_network
      
   db:
     image: postgres:13.3
@@ -26,3 +28,21 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
+    networks:
+      - swagger_network
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger_ui_container
+    ports:
+        - "80:8080"
+    volumes:
+        - ./doc:/usr/share/nginx/html/doc
+    environment:
+        API_URL: doc/openapi.yaml
+    networks:
+      - swagger_network
+
+networks:
+  swagger_network:
+    driver: bridge

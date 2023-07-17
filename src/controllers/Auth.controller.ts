@@ -17,8 +17,8 @@ export class AuthController {
 
 		if (!username || !password) res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ error: ProjectError.WRONG_INPUT_DATA });
 
-		const signedInUserToken = await this.#AuthService.signIn(req.body);
-		res.send(signedInUserToken);
+		const signedInUserToken = await this.#AuthService.signIn(req.body)
+		res.json({ token: signedInUserToken });
 	}
 }
 

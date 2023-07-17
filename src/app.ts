@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors';
 
 import errorMiddleware from "./middlewares/Error.middleware";
 
@@ -17,5 +18,11 @@ app.use('', authRouter);
 app.use('/reservation', reservationRouter);
 app.use('/file', fileRouter);
 app.use('/user', userRouter);
+
+app.use(cors({
+	origin: ['http://localhost:80', 'http://localhost:8080', 'http://localhost:3000'],
+	optionsSuccessStatus: 200,
+}));
+
 
 export default app;
