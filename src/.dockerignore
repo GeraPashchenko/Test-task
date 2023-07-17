@@ -1,0 +1,4 @@
+/node_modules
+/docker-initdb
+/dist
+README.md

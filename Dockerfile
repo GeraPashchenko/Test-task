@@ -1,4 +1,13 @@
-FROM postgres:14 as db
+FROM node:16-alpine AS builder
 WORKDIR /app
-COPY ./docker-initdb/01-init-db.sql ./docker-entrypoint-initdb.d/01-init-db.sql
-COPY ./docker-initdb/02-load-data.sql ./docker-entrypoint-initdb.d/02-load-data.sql
+COPY . .
+RUN npm install
+RUN npm run build
+
+FROM node:16-alpine AS final
+WORKDIR /app
+COPY --from=builder ./app/build ./build
+COPY package.json .
+COPY package-lock.json .
+RUN npm install --production
+CMD [ "npm", "run", "start" ]

@@ -2,3 +2,4 @@
 /build
 .editorconfig
 /dbdata
+private.key
