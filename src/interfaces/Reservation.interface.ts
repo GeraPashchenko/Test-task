@@ -5,4 +5,4 @@ export default interface IReservation {
 	start_ime: number,
 	end_time: number,
 	date: number,
-};
+}

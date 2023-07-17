@@ -1,13 +1,10 @@
 import * as express from "express";
 import upload from "../config/multer-upload";
-
-import FileController from "../controllers/File.controller";
-import { FileService } from "../services/File.service";
+import { fileController } from "../controllers/File.controller";
+import { authMiddleware } from "../middlewares/Auth.middleware";
 
 const router = express.Router();
-const fileService = new FileService();
-const fileController = new FileController(fileService);
 
-router.post('/upload', upload.single('file'), fileController.convertFileToCSV.bind(fileController));
+router.post('/upload', [authMiddleware, upload.single('file')], fileController.convertFileToCSV.bind(fileController));
 
 export default router;

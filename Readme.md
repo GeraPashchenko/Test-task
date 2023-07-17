@@ -12,6 +12,9 @@
 
 ---
 
+# How to test ths project
+Firstly you need to create `private.key` file like example `private.key.example` and fill it with your private key (it could be any text). Project needs it to configure `sign up/sign in` tokens.
+
 # Prehistory
 
 This project had been created with "`Google TypeScript Stype`" becasue I like this easy to setup and nice to manage feature.

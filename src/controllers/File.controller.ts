@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { IFileService } from "../services/File.service";
+import { IFileService, fileService } from "../services/File.service";
 import IAmenity from "../interfaces/Amenity.interface";
 import IReservation from "../interfaces/Reservation.interface";
 import { StatusCodes } from "http-status-codes";
+import { ProjectError } from "../enums/ProjectErrors.enum";
 
 /* 
 	This union type inclydes a list of the possible interfaces that could be returned while working wiht files.
@@ -12,7 +13,7 @@ import { StatusCodes } from "http-status-codes";
 */
 type DynamicFileDataInterface = IAmenity | IReservation;
 
-export default class FileController {
+export class FileController {
 	#FileService: IFileService;
 
 	constructor(fileService: IFileService) {
@@ -21,10 +22,12 @@ export default class FileController {
 
 	async convertFileToCSV(req: Request, res: Response) {
 		if (!req.file) {
-			return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ error: "No file uploaded" });
+			return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ error: ProjectError.NO_FILE_UPLOADED });
 		}
 
 		const jsonedFile = await this.#FileService.convertFileToJson<DynamicFileDataInterface>(req.file);
 		return res.json(jsonedFile);
 	};
 }
+
+export const fileController = Object.freeze(new FileController(fileService))

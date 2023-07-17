@@ -1,8 +1,8 @@
 import app from "./app";
 import dataSource from "./config/database/dataSource";
-import dotenv from "dotenv";
+import { configDotenv } from "dotenv";
 
-dotenv.config();
+configDotenv();
 
 app.listen(process.env.SERVER_PORT, () => {
 	dataSource.initialize()

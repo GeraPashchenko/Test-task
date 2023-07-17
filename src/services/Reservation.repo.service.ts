@@ -40,7 +40,7 @@ export class ReservationRepoService implements IReservationRepoService {
 		}));
 	}
 
-	async listByUserId(user_id: number): Promise<any> {
+	async listByUserId(user_id: number): Promise<Reservation[]> {
 		const reservations = await this.#ReservationRepository.createQueryBuilder('rs')
 			.select('rs.date, COUNT(rs.user_id)', 'reservations_count')
 			.where('rs.user_id = :user_id', { user_id })
@@ -50,3 +50,5 @@ export class ReservationRepoService implements IReservationRepoService {
 		return reservations;
 	}
 }
+
+export const reservationRepoService = Object.freeze(new ReservationRepoService());

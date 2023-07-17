@@ -10,7 +10,7 @@ INSERT INTO amenities (id, name) VALUES
 	('9', 'Mylan N.V.'),
 	('10', 'Blackrock Municipal Income Quality Trust');
 
-INSERT INTO reservations (id, amenityId, userId, startTime, endTime, date) VALUES
+INSERT INTO reservations (id, amenity_id, user_id, start_time, end_time, date) VALUES
 	('1', '1', '97', '600', '900', 1592611200000),
 	('2', '2', '57', '540', '780', 1592697600000),
 	('3', '6', '5', '360', '900', 1590105600000),

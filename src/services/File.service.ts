@@ -20,12 +20,8 @@ export class FileService implements IFileService {
 	}
 
 	private async convertCSVtoJSON<T>(fileBuffer: Buffer): Promise<T[] | T> {
-		console.log(fileBuffer);
-
 		const fileString = this.formatFileBufferToFileString(fileBuffer);
 		const convertedFileString = await this.formatCSVFileStringToJSON<T>(fileString);
-
-		console.log(convertedFileString);
 
 		return convertedFileString as T[] | T;
 	}
@@ -40,3 +36,5 @@ export class FileService implements IFileService {
 		}
 	}
 }
+
+export const fileService = Object.freeze(new FileService());
